@@ -8,7 +8,23 @@
     #include<stdio.h>
     #include<stdlib.h>
     #include<stdbool.h>
+    #include<assert.h>
     
+    struct InfoNode
+    {
+        void *info;
+        struct InfoNode *next;
+        struct InfoNode *previous;
+    };
+
+    struct MasterNode
+    {
+        unsigned int size;
+        struct InfoNode *front;
+        struct InfoNode *current;
+        struct InfoNode *rear;
+    };
+
     typedef struct InfoNode info_t;
     typedef struct MasterNode master_t;
 

@@ -1,7 +1,6 @@
 #ifndef _LIST_H_
 #define _LIST_H_
     #include "common.h"
-    #include<assert.h>
     #include<stdbool.h>
     
     master_t* create_list();

@@ -1,5 +1,6 @@
 #include "common.h"
 
+/*
 struct InfoNode
 {
     void *info;
@@ -14,7 +15,7 @@ struct MasterNode
     struct InfoNode *current;
     struct InfoNode *rear;
 };
-
+*/
 unsigned int master_size(master_t *master)
 {
     assert(master != NULL);
