@@ -56,7 +56,7 @@ master_t* create_master(void)
         master->front = NULL;
         master->rear = NULL;
         master->size = 0;
-        logger(LOG_LEVEL_INFO, "MasterNode record created successfully\n");
+        //logger(LOG_LEVEL_INFO, "MasterNode record created successfully\n");
     }
     else
     {
@@ -73,7 +73,7 @@ info_t* create_info(void* info)
         inf->info = info;
         inf->next = NULL;
         inf->previous = NULL;
-        logger(LOG_LEVEL_INFO, "InfoNode record created successfully\n");
+        //logger(LOG_LEVEL_INFO, "InfoNode record created successfully\n");
     }
     else
     {
