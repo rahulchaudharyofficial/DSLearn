@@ -24,8 +24,17 @@ unsigned int master_size(master_t *master)
 
 bool is_master_empty(master_t *master)
 {
-    assert(master != NULL);
-    return (master->size == 0 && master->current == NULL && master->front == NULL && master->rear == NULL);
+    bool isEmpty = false;
+    if(master == NULL || ( 
+        master->size == 0 && 
+        master->current == NULL && 
+        master->front == NULL && 
+        master->rear == NULL))
+        {
+            isEmpty = true;
+        }
+
+    return isEmpty;
 }
 
 void logger(const short log_level,char *message)
@@ -80,4 +89,28 @@ info_t* create_info(void* info)
         logger(LOG_LEVEL_ERROR,"MemoryOverflowError: MasterNode memory allocation failed!\n");
     }
     return inf;
+}
+
+info_t* get_front(master_t* master)
+{
+    if(master)
+        return master->front;
+    else
+        return NULL;
+}
+
+info_t* get_rear(master_t* master)
+{
+    if(master)
+        return master->rear;
+    else
+        return NULL;
+}
+
+info_t* get_current(master_t* master)
+{
+    if(master)
+        return master->current;
+    else
+        return NULL;
 }

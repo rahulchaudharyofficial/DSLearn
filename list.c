@@ -5,7 +5,7 @@ master_t* create_list()
     return create_master();
 }
 
-info_t* add(master_t *master, void* inf)
+info_t* add_node(master_t *master, void* inf)
 {
     assert(master != NULL);
     info_t* info = create_info(inf);
@@ -27,7 +27,7 @@ info_t* add(master_t *master, void* inf)
     return info;
 }
 
-void print(fptr_print display, master_t *master)
+void print(master_t *master, fptr_print display)
 {
     if(master && !is_master_empty(master))
     {
@@ -49,12 +49,56 @@ void print(fptr_print display, master_t *master)
     }
 }
 
-bool remove(info_t *node, master_t *master)
+bool remove_node(master_t *master,info_t *node)
 {
     bool isRemoved = false;
     if(!is_master_empty(master))
     {
+        info_t * temp = master->front;
+        while(temp != node)
+        {
+            temp = temp->next;
+        }
+        if(master_size(master) == 1)
+        {
+            master->current = NULL;
+            master->front = NULL;
+            master->rear = NULL;
+            master->size = 0;    
+        }
+        else
+        {
+            temp->previous->next = temp->next;
+        }
         
+        free(temp->info);
+        free(temp);
+        isRemoved = true;
     }
     return isRemoved;
+}
+
+info_t* find_node(master_t *master, void* data, fptr_find finder)
+{
+    info_t *temp = NULL;
+    bool found = false;
+    if(!is_master_empty(master))
+    {
+        temp = master->front;
+        while(temp != NULL)
+        {
+            if(finder(temp, data))
+            {
+                found = true;
+                break;
+            }
+            temp = temp->next;
+        }
+        // If failed to find then reset return item to NULL
+        if(!found)
+        {
+            temp = NULL;
+        }
+    }
+    return temp;
 }

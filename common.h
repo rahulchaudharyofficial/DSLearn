@@ -55,4 +55,7 @@
     info_t* create_info(void*);
     unsigned int master_size(master_t*);
     bool is_master_empty(master_t*);
+    info_t* get_front(master_t*);
+    info_t* get_rear(master_t*);
+    info_t* get_current(master_t*);
 #endif
