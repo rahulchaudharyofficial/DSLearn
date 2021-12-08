@@ -9,4 +9,5 @@
     void print(master_t *master, fptr_print display);
     bool remove_node(master_t *master,info_t *node);
     info_t* find_node(master_t *master, void *data, fptr_find finder);
+    void cleanup(master_t*);
 #endif

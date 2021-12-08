@@ -39,5 +39,7 @@ int main(int argc, char const *argv[])
     node = find_node(master, data, finder);
     remove_node(master,node);
     print(master, print_int);
+    cleanup(master);
+    print(master,print_int);
     return 0;
 }

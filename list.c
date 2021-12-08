@@ -64,14 +64,13 @@ bool remove_node(master_t *master,info_t *node)
             master->current = NULL;
             master->front = NULL;
             master->rear = NULL;
-            master->size = 0;    
         }
         else
         {
             temp->previous->next = temp->next;
         }
-        
-        free(temp->info);
+        master->size-=1;
+        //free(temp->info);
         free(temp);
         isRemoved = true;
     }
@@ -101,4 +100,17 @@ info_t* find_node(master_t *master, void* data, fptr_find finder)
         }
     }
     return temp;
+}
+
+void cleanup(master_t *master)
+{
+    if(!is_master_empty(master))
+    {
+        while(master->front != NULL)
+        {
+            remove_node(master, master->front);   
+        }
+    }
+    if(master != NULL)
+        free(master);
 }
