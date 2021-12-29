@@ -55,7 +55,7 @@ bool remove_node(master_t *master,info_t *node)
     if(!is_master_empty(master))
     {
         info_t * temp = master->front;
-        while(temp != node)
+        while(temp!=NULL && temp != node)
         {
             temp = temp->next;
         }
@@ -70,7 +70,9 @@ bool remove_node(master_t *master,info_t *node)
             temp->previous->next = temp->next;
         }
         master->size-=1;
-        //free(temp->info);
+        void *info = temp->info;
+        temp->info=NULL;
+        free(info);
         free(temp);
         isRemoved = true;
     }
@@ -106,11 +108,25 @@ void cleanup(master_t *master)
 {
     if(!is_master_empty(master))
     {
-        while(master->front != NULL)
+        info_t *temp = master->front;
+        while(temp != NULL)
         {
-            remove_node(master, master->front);   
+            info_t *ptr = temp;
+            temp = temp->next;
+            free(ptr);
+            ptr = NULL;
+            master->size-=1;
         }
     }
-    if(master != NULL)
+    
+    if(master)
+    {
+        master->size = 0;
+        master->front = NULL;
+        master->current = NULL;
+        master->rear = NULL;
         free(master);
+        master = NULL;
+    }
 }
+

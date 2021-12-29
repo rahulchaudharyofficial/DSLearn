@@ -1,9 +1,13 @@
 #include "list.h"
+#include<limits.h>
 
 void print_int(void *info)
 {
-    int* data = (int*) info;
-    printf("%d \t", *data);
+    if(info != NULL)
+    {
+        int* data = (int*) info;
+        printf("%d \t", *data);
+    }
 }
 
 bool finder(info_t *node, void *data)
@@ -22,7 +26,7 @@ bool finder(info_t *node, void *data)
 int main(int argc, char const *argv[])
 {
     master_t *master = create_list();
-    for(int i = 1; i <= 10; i++)
+    for(int i = 1; i <= INT_MAX; i++)
     {
         int *j = (int*) malloc(sizeof(int));
         *j = i;
@@ -40,6 +44,5 @@ int main(int argc, char const *argv[])
     remove_node(master,node);
     print(master, print_int);
     cleanup(master);
-    print(master,print_int);
     return 0;
 }
