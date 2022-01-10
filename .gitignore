@@ -1,1 +1,7 @@
 .vscode/
+common.o
+list.o
+list.h.gch
+common.h.gch
+common_test
+list_test
