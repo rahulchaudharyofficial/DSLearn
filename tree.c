@@ -327,23 +327,27 @@ bool delete (node_t *parent, node_t *root, int key)
 			{
 				//find largest left sub tree node
 				node_t *lefty = root->left;
-				node_t *leftyParent = lefty;
-				while(lefty->right)
+				node_t *leftyParent = root;
+				while(lefty->right != NULL)
 				{
-					lefty = lefty->right;
 					leftyParent = lefty;
+					lefty = lefty->right;
 				}
 				//Perform data exchange
-				if(parent->left == root)
+				root->data = lefty->data;
+
+				if(leftyParent->left == lefty)
 				{
-					parent->left = lefty;
+					leftyParent->left = NULL;
 				}
-				if(parent->right == root)
+				if(leftyParent->right == lefty)
 				{
-					parent->right = lefty;
+					leftyParent->right = NULL;
 				}
-				leftyParent->right = NULL;
-				free(root);
+				
+				
+				free(lefty);
+				lefty = NULL;
 				result = true;
 			}
 		}
@@ -353,6 +357,25 @@ bool delete (node_t *parent, node_t *root, int key)
 		}
 	}
 	return result;
+}
+
+void _destroy(node_t *root)
+{
+	if (root)
+	{
+		_destroy(root->left);
+		_destroy(root->right);
+		free(root);
+	}
+}
+void destroy(tree_t *tree)
+{
+	if (tree)
+	{
+		_destroy(tree->root);
+		tree->size=0;
+		free(tree);
+	}
 }
 
 int main(int argc, char **argv)
@@ -417,22 +440,30 @@ int main(int argc, char **argv)
 
 			printInOrderTree(tree->root);
 			printf("\n");
-			/*if(delete(NULL,tree->root,23))
+			if(delete(NULL,tree->root,23))
 			{
 				tree->size--;
 			}
-			
 			if(delete(NULL,tree->root,5))
 			{
 				tree->size--;
-			}*/
+			}
 			if(delete(NULL,tree->root,20))
+			{
+				tree->size--;
+			}
+			if(delete(NULL,tree->root,9))
+			{
+				tree->size--;
+			}
+			if(delete(NULL,tree->root,17))
 			{
 				tree->size--;
 			}
 			printInOrderTree(tree->root);
 			printf("\n");
 		}
+		destroy(tree);
 		printf("tree size = %d\n", getTreeSize(tree));
 		return EXIT_FAILURE;
 	}
