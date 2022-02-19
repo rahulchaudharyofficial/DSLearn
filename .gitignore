@@ -5,3 +5,6 @@ list.h.gch
 common.h.gch
 common_test
 list_test
+venv/
+*.o
+*.txt
